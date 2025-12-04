@@ -1,0 +1,71 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "D:\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\iverilog\lib\ivl\va_math.vpi";
+S_0000023327965000 .scope module, "tb_InstructionMemory" "tb_InstructionMemory" 2 3;
+ .timescale -9 -12;
+P_0000023327964d90 .param/l "DATA_WIDTH" 0 2 6, +C4<00000000000000000000000000100000>;
+P_0000023327964dc8 .param/l "MEM_ADDR_WIDTH" 0 2 7, +C4<00000000000000000000000000100000>;
+P_0000023327964e00 .param/l "MEM_SIZE" 0 2 8, +C4<00000000000000000000000100000000>;
+v0000023327965360_0 .net "instruction", 31 0, L_0000023327965680;  1 drivers
+v0000023327965400_0 .var "pc_address", 31 0;
+S_00000233276bd050 .scope module, "dut" "InstructionMemory" 2 18, 3 1 0, S_0000023327965000;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 32 "pc_address";
+    .port_info 1 /OUTPUT 32 "instruction";
+P_00000233276bd1e0 .param/l "DATA_WIDTH" 0 3 2, +C4<00000000000000000000000000100000>;
+P_00000233276bd218 .param/l "MEM_ADDR_WIDTH" 0 3 3, +C4<00000000000000000000000000100000>;
+P_00000233276bd250 .param/l "MEM_SIZE" 0 3 4, +C4<00000000000000000000000100000000>;
+L_0000023327965680 .functor BUFZ 32, L_00000233279654a0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v00000233276b6c30_0 .net *"_ivl_0", 31 0, L_00000233279654a0;  1 drivers
+v00000233276b6d80_0 .net *"_ivl_2", 31 0, L_00000233279655e0;  1 drivers
+v00000233276b6ed0_0 .net *"_ivl_4", 29 0, L_0000023327965540;  1 drivers
+L_00000233279bf868 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v00000233276b6a60_0 .net *"_ivl_6", 1 0, L_00000233279bf868;  1 drivers
+v00000233276bd290_0 .net "instruction", 31 0, L_0000023327965680;  alias, 1 drivers
+v00000233276bd330 .array "mem", 255 0, 31 0;
+v00000233276bd3d0_0 .net "pc_address", 31 0, v0000023327965400_0;  1 drivers
+L_00000233279654a0 .array/port v00000233276bd330, L_00000233279655e0;
+L_0000023327965540 .part v0000023327965400_0, 2, 30;
+L_00000233279655e0 .concat [ 30 2 0 0], L_0000023327965540, L_00000233279bf868;
+    .scope S_00000233276bd050;
+T_0 ;
+    %vpi_call 3 16 "$readmemh", "program.hex", v00000233276bd330 {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0000023327965000;
+T_1 ;
+    %vpi_call 2 26 "$dumpfile", "wave_imem.vcd" {0 0 0};
+    %vpi_call 2 27 "$dumpvars", 32'sb00000000000000000000000000000000, S_0000023327965000 {0 0 0};
+    %vpi_call 2 30 "$display", "Bat dau mo phong Instruction Memory..." {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0000023327965400_0, 0, 32;
+    %delay 10000, 0;
+    %pushi/vec4 4, 0, 32;
+    %store/vec4 v0000023327965400_0, 0, 32;
+    %delay 10000, 0;
+    %pushi/vec4 8, 0, 32;
+    %store/vec4 v0000023327965400_0, 0, 32;
+    %delay 10000, 0;
+    %pushi/vec4 12, 0, 32;
+    %store/vec4 v0000023327965400_0, 0, 32;
+    %delay 10000, 0;
+    %vpi_call 2 48 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0000023327965000;
+T_2 ;
+    %vpi_call 2 53 "$monitor", "Time=%0tns | PC=%d | Instruction Hex=%h", $time, v0000023327965400_0, v0000023327965360_0 {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_InstructionMemory.v";
+    "InstructionMemory.v";
