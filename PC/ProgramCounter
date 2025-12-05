@@ -1,0 +1,20 @@
+module ProgramCounter #(
+    parameter WIDTH = 32
+)(
+    input  wire             clk,
+    input  wire             reset,    // Reset đồng bộ
+    input  wire [WIDTH-1:0] pc_next,  // Địa chỉ lệnh tiếp theo (Input)
+    output reg  [WIDTH-1:0] pc_current // Địa chỉ lệnh hiện tại (Output)
+);
+
+    always @(posedge clk) begin
+        if (reset) begin
+            // Khi reset, PC quay về 0 (địa chỉ khởi động)
+            pc_current <= {WIDTH{1'b0}};
+        end else begin
+            // Cập nhật địa chỉ mới
+            pc_current <= pc_next;
+        end
+    end
+
+endmodule
